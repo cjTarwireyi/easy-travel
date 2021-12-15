@@ -3,8 +3,22 @@
     <div class="section content-title-group">
       <h2 class="title">Passengers</h2>
     </div>
-    <div class="columns">
-      <div class="column is-8">
+     <div class="columns">
+      <div class="column is-3">
+        <header class="card-header">
+          <p class="card-header-title">heroes list</p>
+        </header>
+        <ul class="list is-hoverable">
+            <li v-for="passenger in passengers" :key="passenger.id">
+                <a class="list-item" @click="selectedPassenger = passenger" :class="{'is-active': selectedPassenger==passenger}"> 
+                  <span>{{passenger.firstName}}</span>
+                </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <div class="columns" v-if="selectedPassenger">
+      <div class="column is-3">
         <div class="card edit-detail">
           <header class="card-header">
             <p class="card-header-title"></p>
@@ -13,28 +27,28 @@
             <div class="content">             
               <div class="field">
                 <label class="label" for="firstName">first name</label>
-                <input class="input" id="firstName" v-model="passenger.firstName" />
+                <input class="input" id="firstName" v-model="selectedPassenger.firstName" />
               </div>
               <div class="field">
                 <label class="label" for="lastName">last name</label>
-                <input class="input" id="lastName" v-model="passenger.lastName" />
+                <input class="input" id="lastName" v-model="selectedPassenger.lastName" />
               </div>
               <div class="field">
                 <label class="label" for="idNumber">ID No</label>
-                <input class="input" id="idNumber" type="text" v-model="passenger.IdNumber"/>
+                <input class="input" id="idNumber" type="text" v-model="selectedPassenger.IdNumber"/>
               </div>
              <div class="field">
                 <label class="label" for="dateOfBirth">DOB</label>
-                <input class="input" id="dateOfBirth" type="text" v-model="passenger.dateOfBirth" />
+                <input class="input" id="dateOfBirth" type="text" v-model="selectedPassenger.dateOfBirth" />
               </div>
                <div class="field">
                 <label class="label">Gender</label>
                 <label class="radio" for="female">
-                  <input type="radio" id="female" value="female" v-model="passenger.gender"/>
+                  <input type="radio" id="female" value="female" v-model="selectedPassenger.gender"/>
                   Female
                 </label>
                 <label class="radio" for="male">
-                  <input type="radio" id="male" value="male" v-model="passenger.gender" />
+                  <input type="radio" id="male" value="male" v-model="selectedPassenger.gender" />
                   Male
                 </label>               
                 <div class="color-line"></div>
@@ -43,7 +57,7 @@
                 <label for="power">
                   Departure
                   <div class="select is-primary">
-                    <select id="departure" v-model="passenger.departure" :class="{invalid: !passenger.departure}" @keyup.esc="clearDeparture()">
+                    <select id="departure" v-model="selectedPassenger.departure" :class="{invalid: !selectedPassenger.departure}" @keyup.esc="clearDeparture()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
                       <option>Cape Town Bellville</option>
@@ -57,7 +71,7 @@
                 <label for="power">
                   Destination
                   <div class="select is-primary">
-                    <select id="destination" v-model="passenger.destination" :class="{invalid: !passenger.destination}" @keyup.esc="clearDestination()">
+                    <select id="destination" v-model="selectedPassenger.destination" :class="{invalid: !selectedPassenger.destination}" @keyup.esc="clearDestination()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
                       <option>Cape Town Bellville</option>
@@ -70,7 +84,7 @@
               <div class="field">
                 <label class="checkbox" for="active">
                   active
-                  <input type="checkbox" class="is-primary" id="active" v-model="passenger.active" />
+                  <input type="checkbox" class="is-primary" id="active" v-model="selectedPassenger.active" />
                 </label>
               </div>
             </div>
@@ -86,7 +100,7 @@
             </button>
           </footer>
         </div>
-        <div class="notification is-info">{{message}}</div>
+        <div class="notification is-info"></div>
       </div>
     </div>
   </div>
@@ -97,17 +111,53 @@ export default {
   name: 'Passengers',
   data(){
     return{
-      passenger:{
-        firstName:'John',
-        lastName:'Dor',
-        IdNumber:'12345',
-        dateOfBirth:'',
-        gender:'female',
-        active:true,
-        departure:'',
-        destination:''
-      },
-        message:'',
+      selectedPassenger:undefined,
+      passengers: [
+        {
+          id: 10,
+          firstName: 'Gladys',
+          lastName: 'May',
+          IdNumber:'2001',
+          dateOfBirth:'',
+          gender:'female',
+          active:true,
+          departure:'',
+          destination:''
+        },
+        {
+          id: 20,
+          firstName: 'Jane',
+          lastName: 'Govender',
+           IdNumber:'2002',
+          dateOfBirth:'',
+          gender:'female',
+          active:true,
+          departure:'',
+          destination:''
+        },
+        {
+          id: 30,
+          firstName: 'Peter',
+          lastName: 'Drygh',
+          IdNumber:'2003',
+          dateOfBirth:'',
+          gender:'male',
+          active:true,
+          departure:'',
+          destination:''
+        },
+        {
+          id: 40,
+          firstName: 'Jake',
+          lastName: 'Moore',
+          IdNumber:'2004',
+          dateOfBirth:'',
+          gender:'male',
+          active:true,
+          departure:'',
+          destination:''
+        },
+      ],
     }
   },
 
