@@ -30,11 +30,11 @@
                <div class="field">
                 <label class="label">Gender</label>
                 <label class="radio" for="female">
-                  <input type="radio" id="female" value="female" />
+                  <input type="radio" id="female" value="female" v-model="passenger.gender"/>
                   Female
                 </label>
                 <label class="radio" for="male">
-                  <input type="radio" id="male" value="male" />
+                  <input type="radio" id="male" value="male" v-model="passenger.gender" />
                   Male
                 </label>               
                 <div class="color-line"></div>
@@ -43,7 +43,7 @@
                 <label for="power">
                   Departure
                   <div class="select is-primary">
-                    <select id="departure" v-model="passenger.departure">
+                    <select id="departure" v-model="passenger.departure" :class="{invalid: !passenger.departure}" @keyup.esc="clearDeparture()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
                       <option>Cape Town Bellville</option>
@@ -57,7 +57,7 @@
                 <label for="power">
                   Destination
                   <div class="select is-primary">
-                    <select id="destination">
+                    <select id="destination" v-model="passenger.destination" :class="{invalid: !passenger.destination}" @keyup.esc="clearDestination()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
                       <option>Cape Town Bellville</option>
@@ -102,9 +102,10 @@ export default {
         lastName:'Dor',
         IdNumber:'12345',
         dateOfBirth:'',
-        gender:'M',
+        gender:'female',
         active:true,
-        departure:'Cape Town CBD'
+        departure:'',
+        destination:''
       },
         message:'',
     }
@@ -116,8 +117,13 @@ export default {
     },
     save() {
       this.message = JSON.stringify(this.passenger,null,'\n');
+    },
+    clearDropdown(){
+      this.passenger.departure='';
+    },
+    clearDestination() {
+      this.passenger.destination='';
     }
-
   },
 };
 </script>
