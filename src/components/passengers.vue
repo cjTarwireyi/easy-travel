@@ -5,6 +5,7 @@
     </div>
      <div class="columns">
       <div class="column is-3">
+         <div class="card" v-show="passengers.length">
         <header class="card-header">
           <p class="card-header-title">Passenger list</p>
         </header>
@@ -15,13 +16,17 @@
                 </a>
             </li>
         </ul>
+        </div>
+            <div class="notification is-info" v-show="message">{{ message }}</div>
       </div>
+    
     </div>
     <div class="columns" v-if="selectedPassenger">
       <div class="column is-3">
+           <div class="card">
         <div class="card edit-detail">
           <header class="card-header">
-            <p class="card-header-title"></p>
+            <p class="card-header-title">{{fullName}} </p>
           </header>
           <div class="card-content">
             <div class="content">             
@@ -107,66 +112,92 @@
         </div>
         <div class="notification is-info"></div>
       </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Passengers',
-  data(){
-    return{
-      selectedPassenger:undefined,
-      passengers: [
+<script> 
+
+const mockApiPassengers = [
         {
           id: 10,
           firstName: 'Gladys',
           lastName: 'May',
           IdNumber:'2001',
-          dateOfBirth:'',
+          dateOfBirth:new Date(2001,7,1),
           gender:'female',
           active:true,
           departure:'',
-          destination:''
+          destination:'',
+          numberOfItems:2
         },
         {
           id: 20,
           firstName: 'Jane',
           lastName: 'Govender',
            IdNumber:'2002',
-          dateOfBirth:'',
+          dateOfBirth:new Date(2001,7,1),
           gender:'female',
           active:true,
           departure:'',
-          destination:''
+          destination:'',
+          numberOfItems:2
         },
         {
           id: 30,
           firstName: 'Peter',
           lastName: 'Drygh',
           IdNumber:'2003',
-          dateOfBirth:'',
+          dateOfBirth:new Date(2001,7,1),
           gender:'male',
           active:true,
           departure:'',
-          destination:''
+          destination:'',
+          numberOfItems:2
         },
         {
           id: 40,
           firstName: 'Jake',
           lastName: 'Moore',
           IdNumber:'2004',
-          dateOfBirth:'',
+          dateOfBirth:new Date(2001,7,1),
           gender:'male',
           active:true,
           departure:'',
-          destination:''
+          destination:'',
+          numberOfItems:2
         },
-      ],
+      ];
+
+export default {
+  name: 'Passengers',
+  data(){
+    return{
+      selectedPassenger:undefined,
+      passengers:[]
     }
   },
-
+    computed: {
+      fullName() {
+        return `${this.selectedPassenger.firstName} ${this.selectedPassenger.lastName}`; 
+      }
+    },
+    created () {
+      this.loadPassengers();
+    },
   methods: {
+   async getPassengers(){
+      return new Promise(resolve =>{
+        setTimeout(() => resolve(mockApiPassengers),3000);
+      })
+    },
+    async loadPassengers(){
+      this.passengers = [];
+      this.message = 'getting passengers. please wait';
+      this.passengers = await this.getPassengers();
+      this.message = '';
+    },
     cancel() {
       this.message='';
     },
