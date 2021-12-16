@@ -6,12 +6,12 @@
      <div class="columns">
       <div class="column is-3">
         <header class="card-header">
-          <p class="card-header-title">heroes list</p>
+          <p class="card-header-title">Passenger list</p>
         </header>
         <ul class="list is-hoverable">
             <li v-for="passenger in passengers" :key="passenger.id">
                 <a class="list-item" @click="selectedPassenger = passenger" :class="{'is-active': selectedPassenger==passenger}"> 
-                  <span>{{passenger.firstName}}</span>
+                  <span class="width-95-display-inline-block margin-l-5">{{passenger.firstName}}</span>
                 </a>
             </li>
         </ul>
@@ -54,9 +54,12 @@
                 <div class="color-line"></div>
               </div>
               <div class="field">
-                <label for="power">
+              <div class="columns">
+                <label class="column">
                   Departure
-                  <div class="select is-primary">
+                 
+                </label>
+                 <div class="select is-primary column">
                     <select id="departure" v-model="selectedPassenger.departure" :class="{invalid: !selectedPassenger.departure}" @keyup.esc="clearDeparture()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
@@ -65,12 +68,14 @@
                       <option>Musina</option>
                     </select>
                   </div>
-                </label>
+                  </div>
               </div>
               <div class="field">
-                <label for="power">
-                  Destination
-                  <div class="select is-primary">
+                 <div class="columns">
+                <label class="column">
+                  Destination                 
+                </label>
+                 <div class="select is-primary column">
                     <select id="destination" v-model="selectedPassenger.destination" :class="{invalid: !selectedPassenger.destination}" @keyup.esc="clearDestination()">
                       <option disabled value>Please select one</option>
                       <option>Cape Town CBD</option>
@@ -79,7 +84,7 @@
                       <option>Musina</option>
                     </select>
                   </div>
-                </label>
+                  </div>
               </div>
               <div class="field">
                 <label class="checkbox" for="active">
@@ -166,13 +171,13 @@ export default {
       this.message='';
     },
     save() {
-      this.message = JSON.stringify(this.passenger,null,'\n');
+      this.message = JSON.stringify(this.selectedPassenger,null,'\n');
     },
-    clearDropdown(){
-      this.passenger.departure='';
+    clearDeparture(){
+      this.selectedPassenger.departure='';
     },
     clearDestination() {
-      this.passenger.destination='';
+      this.selectedPassenger.destination='';
     }
   },
 };
