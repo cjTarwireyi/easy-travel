@@ -1,83 +1,47 @@
 <template>
   <div class="content-container">
-    <div class="section content-title-group">
+   
+     <div class="columns">
+           <div class="column is-3"></div>
+      <div class="column is-6" v-if="passengers">
+         <div class="section content-title-group">
       <h2 class="title">Passengers</h2>
     </div>
-     <div class="columns">
-      <div class="column is-3">
-         <div class="card" v-show="passengers.length">
-        <header class="card-header">
-          <p class="card-header-title">Passenger list</p>
-        </header>
-        <ul class="list is-hoverable">
+          <ul class="column is-12" v-if="!selectedPassenger">
             <li v-for="passenger in passengers" :key="passenger.id">
-                <a class="list-item" @click="selectedPassenger = passenger" :class="{'is-active': selectedPassenger==passenger}"> 
-                  <span class="width-95-display-inline-block margin-l-5">{{passenger.firstName}}</span>
-                </a>
+              <div class="card">
+                <div class="card-content">
+                  <div class="content">
+                    <div :key="passenger.name" class="name">
+                      {{ passenger.firstName }} {{ passenger.lastName }}
+                    </div>
+                    <div class="description">{{ passenger.description }}</div>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <button
+                    class="link card-footer-item"
+                    @click="selectPassenger(passenger)"
+                  >
+                    <i class="fas fa-check"></i>
+                    <span>Select</span>
+                  </button>
+                </footer>
+              </div>
             </li>
-        </ul>
-        </div>
-            <div class="notification is-info" v-show="message">{{ message }}</div>
-      </div>    
-    </div>
-    <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger" @cancel="cancelPassenger" @save="savePassenger"/>  
+          </ul> 
+            <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger" @cancel="cancelPassenger" @save="savePassenger"/>    
+    </div> 
+             <div class="column is-3"></div> 
+  </div>
   </div>
 </template>
 
 <script> 
 
-const mockApiPassengers = [
-        {
-          id: 10,
-          firstName: 'Gladys',
-          lastName: 'May',
-          IdNumber:'2001',
-          dateOfBirth:new Date(2001,7,1),
-          gender:'female',
-          active:true,
-          departure:'',
-          destination:'',
-          numberOfItems:2
-        },
-        {
-          id: 20,
-          firstName: 'Jane',
-          lastName: 'Govender',
-           IdNumber:'2002',
-          dateOfBirth:new Date(2001,7,1),
-          gender:'female',
-          active:true,
-          departure:'',
-          destination:'',
-          numberOfItems:2
-        },
-        {
-          id: 30,
-          firstName: 'Peter',
-          lastName: 'Drygh',
-          IdNumber:'2003',
-          dateOfBirth:new Date(2001,7,1),
-          gender:'male',
-          active:true,
-          departure:'',
-          destination:'',
-          numberOfItems:2
-        },
-        {
-          id: 40,
-          firstName: 'Jake',
-          lastName: 'Moore',
-          IdNumber:'2004',
-          dateOfBirth:new Date(2001,7,1),
-          gender:'male',
-          active:true,
-          departure:'',
-          destination:'',
-          numberOfItems:2
-        },
-      ];
-
+import {data} from '../shared/data.js';
 import PassengerDetail from '@/components/passenger-detail';
+
 export default {
   name: 'Passengers',
   components:{PassengerDetail},
@@ -89,8 +53,8 @@ export default {
     }
   },
   
-    created () {
-      this.loadPassengers();
+    async created () {
+     await this.loadPassengers();
     },
   methods: {
    async getPassengers(){
@@ -101,7 +65,7 @@ export default {
     async loadPassengers(){
       this.passengers = [];
       this.message = 'getting passengers. please wait';
-      this.passengers = await this.getPassengers();
+      this.passengers = await data.getPassengers();
       this.message = '';
     },
    
@@ -119,7 +83,12 @@ export default {
       this.passengers.splice(index,1,passenger);
       this.passengers = [...this.passengers];
       this.selectedPassenger = undefined;
-    }
+    },
+     selectPassenger(passenger) {
+        this.selectedPassenger = undefined;
+      this.selectedPassenger = passenger;
+      console.log(this.selectedPassenger)
+    },
   },
 };
 </script>

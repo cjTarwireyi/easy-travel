@@ -1,0 +1,50 @@
+[
+    {
+      "id": 10,
+      "firstName": "Gladys",
+      "lastName": "May",
+      "IdNumber": "2001",
+      "dateOfBirth": "2001-07-31T22:00:00.000Z",
+      "gender": "female",
+      "active": true,
+      "departure": "",
+      "destination": "",
+      "numberOfItems": 2
+    },
+    {
+      "id": 20,
+      "firstName": "Jane",
+      "lastName": "Govender",
+      "IdNumber": "2002",
+      "dateOfBirth": "2001-07-31T22:00:00.000Z",
+      "gender": "female",
+      "active": true,
+      "departure": "",
+      "destination": "",
+      "numberOfItems": 2
+    },
+    {
+      "id": 30,
+      "firstName": "Peter",
+      "lastName": "Drygh",
+      "IdNumber": "2003",
+      "dateOfBirth": "2001-07-31T22:00:00.000Z",
+      "gender": "male",
+      "active": true,
+      "departure": "",
+      "destination": "",
+      "numberOfItems": 2
+    },
+    {
+      "id": 40,
+      "firstName": "Jake",
+      "lastName": "Moore",
+      "IdNumber": "2004",
+      "dateOfBirth": "2001-07-31T22:00:00.000Z",
+      "gender": "male",
+      "active": true,
+      "departure": "",
+      "destination": "",
+      "numberOfItems": 2
+    }
+  ]
