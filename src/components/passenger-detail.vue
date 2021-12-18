@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column is-3">
+      <div class="column is-12">
         <div class="card">
           <div class="card edit-detail">
             <header class="card-header">
@@ -68,7 +68,7 @@
                 <div class="field">
                   <div class="columns">
                     <label class="column"> Departure </label>
-                    <div class="select is-primary column">
+                    <div class="select is-primary column is-3">
                       <select
                         id="departure"
                         v-model="clonedPassenger.departure"
@@ -87,7 +87,7 @@
                 <div class="field">
                   <div class="columns">
                     <label class="column"> Destination </label>
-                    <div class="select is-primary column">
+                    <div class="select is-primary column is-3">
                       <select
                         id="destination"
                         v-model="clonedPassenger.destination"
