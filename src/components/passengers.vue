@@ -20,7 +20,7 @@
             <div class="notification is-info" v-show="message">{{ message }}</div>
       </div>    
     </div>
-    <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger"/>  
+    <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger" @cancel="cancelPassenger" @save="savePassenger"/>  
   </div>
 </template>
 
@@ -110,6 +110,15 @@ export default {
     },
     clearDestination() {
       this.selectedPassenger.destination='';
+    },
+    cancelPassenger(){
+      this.selectedPassenger = undefined;
+    },
+    savePassenger(passenger){
+      const index  = this.passengers.findIndex(i => i.id === passenger.id);
+      this.passengers.splice(index,1,passenger);
+      this.passengers = [...this.passengers];
+      this.selectedPassenger = undefined;
     }
   },
 };
