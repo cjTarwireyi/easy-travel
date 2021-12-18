@@ -14,7 +14,7 @@
                   <input
                     class="input"
                     id="firstName"
-                    v-model="passenger.firstName"
+                    v-model="clonedPassenger.firstName"
                   />
                 </div>
                 <div class="field">
@@ -22,7 +22,7 @@
                   <input
                     class="input"
                     id="lastName"
-                    v-model="passenger.lastName"
+                    v-model="clonedPassenger.lastName"
                   />
                 </div>
                 <div class="field">
@@ -31,7 +31,7 @@
                     class="input"
                     id="idNumber"
                     type="text"
-                    v-model="passenger.IdNumber"
+                    v-model="clonedPassenger.IdNumber"
                   />
                 </div>
                 <div class="field">
@@ -40,7 +40,7 @@
                     class="input"
                     id="dateOfBirth"
                     type="text"
-                    v-model="passenger.dateOfBirth"
+                    v-model="clonedPassenger.dateOfBirth"
                   />
                 </div>
                 <div class="field">
@@ -50,7 +50,7 @@
                       type="radio"
                       id="female"
                       value="female"
-                      v-model="passenger.gender"
+                      v-model="clonedPassenger.gender"
                     />
                     Female
                   </label>
@@ -59,7 +59,7 @@
                       type="radio"
                       id="male"
                       value="male"
-                      v-model="passenger.gender"
+                      v-model="clonedPassenger.gender"
                     />
                     Male
                   </label>
@@ -71,8 +71,8 @@
                     <div class="select is-primary column">
                       <select
                         id="departure"
-                        v-model="passenger.departure"
-                        :class="{ invalid: !passenger.departure }"
+                        v-model="clonedPassenger.departure"
+                        :class="{ invalid: !clonedPassenger.departure }"
                         @keyup.esc="clearDeparture()"
                       >
                         <option disabled value>Please select one</option>
@@ -90,8 +90,8 @@
                     <div class="select is-primary column">
                       <select
                         id="destination"
-                        v-model="passenger.destination"
-                        :class="{ invalid: !passenger.destination }"
+                        v-model="clonedPassenger.destination"
+                        :class="{ invalid: !clonedPassenger.destination }"
                         @keyup.esc="clearDestination()"
                       >
                         <option disabled value>Please select one</option>
@@ -110,7 +110,7 @@
                       type="checkbox"
                       class="is-primary"
                       id="active"
-                      v-model="passenger.active"
+                      v-model="clonedPassenger.active"
                     />
                   </label>
                 </div>
@@ -140,6 +140,11 @@
 <script>
 export default {
   name: 'passengerDetail',
+  data(){
+    return{
+      clonedPassenger:{...this.passenger}
+    }
+  },
   props: {
     passenger: {
       type: Object,
@@ -148,14 +153,16 @@ export default {
   },
   computed: {
     fullName() {
-      return `${this.passenger.firstName} ${this.passenger.lastName}`;
+      return `${this.clonedPassenger.firstName} ${this.clonedPassenger.lastName}`;
     },
   },
+   methods: {
   cancel() {
-    this.message = '';
+    this.$emit('cancel');
   },
   save() {
-    this.message = JSON.stringify(this.selectedPassenger, null, '\n');
+    this.$emit('save',this.clonedPassenger);
   },
+   }
 };
 </script>
