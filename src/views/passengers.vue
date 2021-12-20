@@ -30,7 +30,7 @@
               </div>
             </li>
           </ul> 
-            <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger" @cancel="cancelPassenger" @save="savePassenger"/>    
+           <PassengerDetail v-if="selectedPassenger" :passenger = "selectedPassenger" @cancel="cancelPassenger" @save="savePassenger"/> 
     </div> 
              <div class="column is-3"></div> 
   </div>
@@ -40,12 +40,11 @@
 <script> 
 
 import {data} from '../shared/data.js';
-import PassengerDetail from '@/components/passenger-detail';
+import PassengerDetail from '@/views/passenger-detail';
 
 export default {
   name: 'Passengers',
   components:{PassengerDetail},
-  name: 'Passengers',
   data(){
     return{
       selectedPassenger:undefined,
