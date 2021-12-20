@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "backend": "json-server --watch db.json --routes routes.json --port 8888 --middlewares ./node_modules/json-server-reset",
+    "dev": "concurrently \"npm run backend\" \"npm run serve\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -11,7 +13,8 @@
     "axios": "^0.24.0",
     "bulma": "^0.9.3",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@vue/babel-preset-app": "^4.5.15",
@@ -28,7 +31,8 @@
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
     "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "concurrently": "^4.1.1"
   },
   "eslintConfig": {
     "root": true,
