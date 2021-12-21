@@ -11,9 +11,19 @@ const getPassengers = async function(){
 }
 
 }
-
+const getHero = async function(id) {
+  try {
+    const response = await axios.get(`${API}/passengers/${id}`);
+    let hero = parseItem(response, 200);
+    return hero;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 export const data ={
     getPassengers,
+    getHero
 }
 
 const parseList = response => {

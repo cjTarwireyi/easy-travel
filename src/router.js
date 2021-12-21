@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Passengers from './views/passengers.vue'
+import PassengerDetail from './views/passenger-detail.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,12 @@ export default new Router({
       path: '/passengers',
       name: 'passengers',
       component: Passengers
+    },
+    {
+      path: '/passengers/:id',
+      name: 'passenger-detail',
+      component: PassengerDetail,
+     props: true
     },
     {
       path: '/about',

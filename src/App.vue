@@ -1,18 +1,23 @@
 <template>
   <div id="app">
     <HeaderBar />
-    <div class="main-section content-title-group">
-    <router-view/>
+    <div class="main-section columns">
+      <navBar />
+      <main class="column">
+ <router-view/>
+      </main>
+   
     </div>
   </div>
 </template>
 
 <script>
 import HeaderBar from '@/components/header-bar';
+import NavBar from '@/components/navbar';
 
 export default {
   name: 'App',
-  components: { HeaderBar },
+  components: { HeaderBar,NavBar },
 };
 </script>
 
