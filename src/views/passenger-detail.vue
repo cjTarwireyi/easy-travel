@@ -138,6 +138,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'passengerDetail',
   data(){
@@ -145,10 +146,12 @@ export default {
       clonedPassenger:{...this.passenger}
     }
   },
+   async created() {
+  },
   props: {
-    passenger: {
-      type: Object,
-      default: () => {},
+    id: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
