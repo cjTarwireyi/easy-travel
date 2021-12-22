@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div>    
     <div class="columns">
-      <div class="column is-12">
+        <div class="column is-3"></div> 
+      <div class="column is-6">
         <div class="card">
           <div class="card edit-detail">
             <header class="card-header">
@@ -14,7 +15,7 @@
                   <input
                     class="input"
                     id="firstName"
-                    v-model="clonedPassenger.firstName"
+                    v-model="passenger.firstName"
                   />
                 </div>
                 <div class="field">
@@ -22,7 +23,7 @@
                   <input
                     class="input"
                     id="lastName"
-                    v-model="clonedPassenger.lastName"
+                    v-model="passenger.lastName"
                   />
                 </div>
                 <div class="field">
@@ -31,7 +32,7 @@
                     class="input"
                     id="idNumber"
                     type="text"
-                    v-model="clonedPassenger.IdNumber"
+                    v-model="passenger.IdNumber"
                   />
                 </div>
                 <div class="field">
@@ -40,7 +41,7 @@
                     class="input"
                     id="dateOfBirth"
                     type="text"
-                    v-model="clonedPassenger.dateOfBirth"
+                    v-model="passenger.dateOfBirth"
                   />
                 </div>
                 <div class="field">
@@ -50,7 +51,7 @@
                       type="radio"
                       id="female"
                       value="female"
-                      v-model="clonedPassenger.gender"
+                      v-model="passenger.gender"
                     />
                     Female
                   </label>
@@ -59,7 +60,7 @@
                       type="radio"
                       id="male"
                       value="male"
-                      v-model="clonedPassenger.gender"
+                      v-model="passenger.gender"
                     />
                     Male
                   </label>
@@ -71,8 +72,8 @@
                     <div class="select is-primary column is-3">
                       <select
                         id="departure"
-                        v-model="clonedPassenger.departure"
-                        :class="{ invalid: !clonedPassenger.departure }"
+                        v-model="passenger.departure"
+                        :class="{ invalid: !passenger.departure }"
                         @keyup.esc="clearDeparture()"
                       >
                         <option disabled value>Please select one</option>
@@ -90,8 +91,8 @@
                     <div class="select is-primary column is-3">
                       <select
                         id="destination"
-                        v-model="clonedPassenger.destination"
-                        :class="{ invalid: !clonedPassenger.destination }"
+                        v-model="passenger.destination"
+                        :class="{ invalid: !passenger.destination }"
                         @keyup.esc="clearDestination()"
                       >
                         <option disabled value>Please select one</option>
@@ -110,7 +111,7 @@
                       type="checkbox"
                       class="is-primary"
                       id="active"
-                      v-model="clonedPassenger.active"
+                      v-model="passenger.active"
                     />
                   </label>
                 </div>
@@ -133,20 +134,23 @@
           <div class="notification is-info"></div>
         </div>
       </div>
+            <div class="column is-3"></div> 
     </div>
+
   </div>
 </template>
 
 <script>
-
+import { dataService } from '../shared';
 export default {
   name: 'passengerDetail',
   data(){
     return{
-      clonedPassenger:{...this.passenger}
+      passenger:{}
     }
   },
-   async created() {
+  async created() {
+    this.passenger = await dataService.getHero(this.id);
   },
   props: {
     id: {
@@ -156,7 +160,7 @@ export default {
   },
   computed: {
     fullName() {
-      return `${this.clonedPassenger.firstName} ${this.clonedPassenger.lastName}`;
+      return `${this.passenger.firstName} ${this.passenger.lastName}`;
     },
   },
    methods: {

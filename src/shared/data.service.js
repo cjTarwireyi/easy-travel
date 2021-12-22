@@ -3,7 +3,8 @@ import {API} from './config';
 
 const getPassengers = async function(){
   try{
-    const response = await axios.get(`${API}/passengers.json`);
+    console.log(API);
+    const response = await axios.get(`${API}/passengers`);
     let data = parseList(response);
     return response.data;
 }catch(error){
@@ -13,19 +14,27 @@ const getPassengers = async function(){
 }
 const getHero = async function(id) {
   try {
+    console.log(API);
     const response = await axios.get(`${API}/passengers/${id}`);
     let hero = parseItem(response, 200);
     return hero;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return null;
   }
 };
-export const data ={
+export const dataService ={
     getPassengers,
     getHero
 }
-
+export const parseItem = (response, code) => {
+  if (response.status !== code) throw Error(response.message);
+  let item = response.data;
+  if (typeof item !== 'object') {
+    item = undefined;
+  }
+  return item;
+};
 const parseList = response => {
     if (response.status !== 200) throw Error(response.message);
     if (!response.data) return [];
