@@ -37,7 +37,7 @@
 
 <script> 
 
-import {data} from '../shared/data.js';
+import { dataService } from '../shared';
 
 export default {
   name: 'Passengers',
@@ -59,7 +59,7 @@ export default {
     async loadPassengers(){
       this.passengers = [];
       this.message = 'getting passengers. please wait';
-      this.passengers = await data.getPassengers();
+      this.passengers = await dataService.getPassengers();
       this.message = '';
     },
    
