@@ -1,15 +1,15 @@
 {
-    "passengers": [
+  "passengers": [
     {
       "id": 10,
-      "firstName": "Gladys",
+      "firstName": "cj",
       "lastName": "May",
       "IdNumber": "2001",
       "dateOfBirth": "2001-07-31T22:00:00.000Z",
-      "gender": "female",
-      "active": true,
-      "departure": "",
-      "destination": "",
+      "gender": "male",
+      "active": false,
+      "departure": "Cape Town CBD",
+      "destination": "Joburg",
       "numberOfItems": 2
     },
     {
@@ -32,8 +32,8 @@
       "dateOfBirth": "2001-07-31T22:00:00.000Z",
       "gender": "male",
       "active": true,
-      "departure": "",
-      "destination": "",
+      "departure": "Cape Town CBD",
+      "destination": "Cape Town Bellville",
       "numberOfItems": 2
     },
     {
