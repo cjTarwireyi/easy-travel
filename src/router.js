@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Passengers from './views/passengers.vue'
-import PassengerDetail from './views/passenger-detail.vue'
+import PageNotFound from './views/page-not-found.vue'
 
 Vue.use(Router)
 
@@ -16,12 +15,12 @@ export default new Router({
     {
       path: '/passengers',
       name: 'passengers',
-      component: Passengers
+      component: () => import(/* webpackChunkName: "bundle.passengers" */ './views/passengers.vue'),
     },
     {
       path: '/passengers/:id',
-      name: 'passenger-detail',
-      component: PassengerDetail,
+      name: 'passenger-detail',   
+      component: () => import(/* webpackChunkName: "bundle.passengers" */ './views/passenger-detail.vue'),
       props: r => ({id: parseInt(r.params.id)})
     },
     {
@@ -30,7 +29,11 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/about.vue')
+      component: () => import(/* webpackChunkName: "bunle.about" */ './views/about.vue')
+    },
+    {
+      path:'*',
+      component: PageNotFound
     }
   ]
 })

@@ -163,13 +163,14 @@ export default {
       return `${this.passenger.firstName} ${this.passenger.lastName}`;
     },
   },
-   methods: {
-  cancel() {
-    this.$emit('cancel');
-  },
-  save() {
-    this.$emit('save',this.clonedPassenger);
-  },
-   }
+  methods: {
+    cancel() {
+      this.$router.push({name:'passengers'});
+    },
+    async save() {
+      await dataService.updatePassenger(this.passenger);
+      this.$router.push({name:'passengers'});
+    },
+  }
 };
 </script>

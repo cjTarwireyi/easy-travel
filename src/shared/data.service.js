@@ -12,6 +12,7 @@ const getPassengers = async function(){
 }
 
 }
+
 const getHero = async function(id) {
   try {
     console.log(API);
@@ -23,10 +24,24 @@ const getHero = async function(id) {
     return null;
   }
 };
+
+const updatePassenger = async function(passenger) {
+  try {
+    const response = await axios.put(`${API}/passengers/${passenger.id}`, passenger);
+    const updatedPassenger = parseItem(response, 200);
+    return updatedPassenger;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const dataService ={
     getPassengers,
-    getHero
+    getHero,
+    updatePassenger
 }
+
 export const parseItem = (response, code) => {
   if (response.status !== code) throw Error(response.message);
   let item = response.data;
@@ -35,6 +50,7 @@ export const parseItem = (response, code) => {
   }
   return item;
 };
+
 const parseList = response => {
     if (response.status !== 200) throw Error(response.message);
     if (!response.data) return [];
