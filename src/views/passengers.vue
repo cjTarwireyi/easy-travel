@@ -38,28 +38,29 @@
 <script> 
 
 import { dataService } from '../shared';
+import{mapState,mapActions} from 'vuex';
 
 export default {
   name: 'Passengers',
   data(){
-    return{     
-      passengers:[]
+    return{    
     }
-  },
-  
-    async created () {
+  },  
+  async created () {
      await this.loadPassengers();
     },
   methods: {
+    ...mapActions(['getPassengersAction']),
    async getPassengers(){
       return new Promise(resolve =>{
         setTimeout(() => resolve(mockApiPassengers),3000);
       })
     },
     async loadPassengers(){
-      this.passengers = [];
+      
       this.message = 'getting passengers. please wait';
-      this.passengers = await dataService.getPassengers();
+     // this.passengers = await dataService.getPassengers();
+     await this.getPassengersAction()
       this.message = '';
     },
    
@@ -79,5 +80,8 @@ export default {
       this.selectedPassenger = undefined;
     }    
   },
+  computed:{
+     ...mapState(['passengers'])
+  }
 };
 </script>
