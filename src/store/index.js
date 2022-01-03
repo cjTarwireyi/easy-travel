@@ -17,8 +17,11 @@ const actions = {
     commit(GET_PASSENGERS,passengers);
   }
 };
-const getters ={};
+const getters ={
+  getPassengerById: state => id => state.passengers.find(p => p.id == id)
+};
 export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   state,
   mutations,
   actions,

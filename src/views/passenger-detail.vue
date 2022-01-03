@@ -142,6 +142,7 @@
 
 <script>
 import { dataService } from '../shared';
+import {mapGetters} from 'vuex';
 export default {
   name: 'passengerDetail',
   data(){
@@ -149,8 +150,8 @@ export default {
       passenger:{}
     }
   },
-  async created() {
-    this.passenger = await dataService.getHero(this.id);
+  created() {
+      this.passenger = this.getPassengerById(this.id);
   },
   props: {
     id: {
@@ -159,6 +160,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['getPassengerById']),
     fullName() {
       return `${this.passenger.firstName} ${this.passenger.lastName}`;
     },
