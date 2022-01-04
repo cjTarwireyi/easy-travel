@@ -125,7 +125,7 @@
                 <i class="fas fa-undo"></i>
                 <span>Cancel</span>
               </button>
-              <button class="link card-footer-item" @click="save()">
+              <button class="link card-footer-item" @click="savePassenger()">
                 <i class="fas fa-save"></i>
                 <span>Save</span>
               </button>
@@ -141,16 +141,31 @@
 </template>
 
 <script>
-import { dataService } from '../shared';
-import {mapGetters} from 'vuex';
+
+import {mapActions,mapGetters} from 'vuex';
 export default {
   name: 'passengerDetail',
+   props: {
+    id: {
+      type: Number,
+      default: 0,
+    },
+  },
   data(){
     return{
       passenger:{}
     }
   },
   created() {
+    if(!this.id){
+      this.hero = {
+        id: undefined,
+        firstName: '',
+        lastName: '',
+        description: '',
+      };
+      return;
+    }
       this.passenger = this.getPassengerById(this.id);
   },
   props: {
@@ -162,16 +177,20 @@ export default {
   computed: {
     ...mapGetters(['getPassengerById']),
     fullName() {
-      return `${this.passenger.firstName} ${this.passenger.lastName}`;
+      return this.passenger ? `${this.passenger.firstName} ${this.passenger.lastName}` : "";
     },
   },
   methods: {
+     ...mapActions(['updatePassengerAction', 'addPassengerAction']),
     cancel() {
       this.$router.push({name:'passengers'});
     },
-    async save() {
-      await dataService.updatePassenger(this.passenger);
-      this.$router.push({name:'passengers'});
+    async savePassenger() {
+      console.log( this.passenger.id);
+      this.passenger.id
+        ? await this.updatePassengerAction(this.passenger)
+        : await this.addPassengerAction(this.passenger);
+      this.$router.push({ name: 'passengers' });
     },
   }
 };

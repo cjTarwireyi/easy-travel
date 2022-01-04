@@ -3,9 +3,7 @@ import {API} from './config';
 
 const getPassengers = async function(){
   try{
-    console.log(API);
-    const response = await axios.get(`${API}/passengers`);
-    let data = parseList(response);
+    const response = await axios.get(`${API}/passengers`); 
     return response.data;
 }catch(error){
 
@@ -13,18 +11,36 @@ const getPassengers = async function(){
 
 }
 
-const getHero = async function(id) {
-  try {
-    console.log(API);
+const getPassenger = async function(id) {
+  try {   
     const response = await axios.get(`${API}/passengers/${id}`);
-    let hero = parseItem(response, 200);
-    return hero;
+    let passenger = parseItem(response, 200);
+    return passenger;
   } catch (error) {
     console.log(error);
     return null;
   }
 };
+const addPassenger = async function(passenger) {
+  try {
+    const response = await axios.post(`${API}/passengers`, passenger);
+    const addedPassenger = parseItem(response, 201);
+    return addedPassenger;
+  } catch (error) {
+    return null;
+  }
+};
 
+const deletePassenger = async function(passenger) {
+  try {
+    const response = await axios.delete(`${API}/passengers/${passenger.id}`);
+    parseItem(response, 200);
+    return passenger.id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 const updatePassenger = async function(passenger) {
   try {
     const response = await axios.put(`${API}/passengers/${passenger.id}`, passenger);
@@ -38,8 +54,10 @@ const updatePassenger = async function(passenger) {
 
 export const dataService ={
     getPassengers,
-    getHero,
-    updatePassenger
+    getPassenger,
+    updatePassenger,
+    addPassenger,
+    deletePassenger
 }
 
 export const parseItem = (response, code) => {
@@ -50,13 +68,3 @@ export const parseItem = (response, code) => {
   }
   return item;
 };
-
-const parseList = response => {
-    if (response.status !== 200) throw Error(response.message);
-    if (!response.data) return [];
-    let list = response.data;
-    if (typeof list !== 'object') {
-      list = [];
-    }
-    return list;
-  };
